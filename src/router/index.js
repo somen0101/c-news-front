@@ -20,6 +20,12 @@ Vue.use(VueRouter)
   },
 
   {
+    path: '/bookmark/:username',
+    name: 'bookmark',
+    component: Index,
+  },
+
+  {
     path: '/auth',
     name: 'Auth',
     // route level code-splitting

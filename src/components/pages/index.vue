@@ -15,11 +15,15 @@
          <a :href = "news.topic_url" target="_brank" rel="noopener">
              <v-row>
              <v-col class="text-left py-1 pb-0" cols="8">
-                  <h3 class="mb-2" icon><icon v-if="checktoken()">
+                  <h3 class="mb-2" icon>
+                    <!--  
+                      <icon>
                   <v-icon v-if="emotion_num(news.sentimental) > 0.4">mdi-emoticon-excited-outline</v-icon>
                   <v-icon v-else-if="emotion_num(news.sentimental) > -0.3">mdi-emoticon-neutral-outline</v-icon>
                   <v-icon v-else>mdi-emoticon-sad</v-icon>
-                  </icon>{{ news.title }}</h3>
+                  </icon>
+                  -->
+                  {{ news.title }}</h3>
                   <p class="mb-0 text-right">
                     <span class="mr-2">{{ news.author }}</span>
                     <time>{{ getFormtedDate(news.published_date) }}</time>
@@ -37,6 +41,22 @@
                 </v-col>
             </v-row> 
          </a>
+         <!--
+          <div class="text-right" v-if="checktoken()">
+          <v-btn small class="share-btn"  
+              title="news.title"
+              sentimental="news.sentimental"
+              author="news.author"
+              published_date="news.published_date"
+              description="news.description"
+              image_url="news.image_url"
+              topic_url="news.topic_url"
+               @click="bookmark">
+         <v-icon>mdi-link
+        </v-icon>
+        </v-btn>
+        </div>
+        -->
          </v-container>
         </v-card>
        </v-col>
@@ -55,6 +75,7 @@ export default {
       page_title: '国内トップニュース',  
       info: [],
       credit:[],
+      username:null,
     }
   },
   watch: {
@@ -92,7 +113,14 @@ export default {
      }else if(this.page_path == '/news/de') {
             axios.get('http://localhost:8000/api/newstopics/?domain_tags=de').then(
         response => this.info = response.data)
-        this.page_title = 'ドイツ'}
+        this.page_title = 'ドイツ'
+       /* 
+        }else if(this.page_path == '/bookmark/'+this.$session.get("username")) {
+            axios.get('http://localhost:8000/api/bookmark/?username='+this.$session.get("username")).then(
+        response => this.info = response.data)
+         this.page_title = 'あなたのブックマーク'
+         */
+        }
     }
   },
   mounted () {
@@ -123,8 +151,32 @@ export default {
         response => this.info = response.data)
      }else if(this.page_path == '/news/de') {
             axios.get('http://localhost:8000/api/newstopics/?domain_tags=de').then(
-        response => this.info = response.data)}},
-   methods: {
+        response => this.info = response.data)
+      /*  
+        }else if(this.page_path == '/bookmark/'+this.$session.get("username")) {
+            axios.get('http://localhost:8000/api/bookmark/?username='+this.$session.get("username")).then(
+        response => this.info = response.data)
+        */
+       }},
+   methods: {  
+       /*
+       bookmark() {
+           this.username=this.$session.get("username")
+           axios.post('http://localhost:8000/api/bookmark/',
+            {
+             body: {
+                "username": this.username,
+                "title": String(event.target.title),
+                "description": String(event.target.sentimental),
+                "published_date": String(event.target.published_date),
+                "author": String(event.target.author),
+                "topic_url": String(event.target.topic_url),
+                "image_url": String(event.target.image_url),
+                "sentimental": String(event.target.sentimental)
+             },
+          })    
+          }, 
+        */   
        checktoken() {
         if (this.$session.has("token")) {
           return true

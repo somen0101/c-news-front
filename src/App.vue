@@ -3,12 +3,13 @@
     <v-app-bar class="header-bar" flat dark dense fixed app clipped-left>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" aria-label="drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>コロナニュースまとめ</v-toolbar-title>
+<!--      
       <v-spacer></v-spacer>
       <div v-if="checkusername()">
       ようこそ
-      <a href="">
+      <router-link :to="{ name: 'bookmark', params: { username: username } }">
        {{ username }}
-      </a>
+      </router-link>
       さん
       </div>
       <div v-else>
@@ -21,6 +22,7 @@
        新規登録
       </v-btn>
       </div>
+-->      
     </v-app-bar>
      <v-navigation-drawer
     v-model="drawer"
@@ -121,9 +123,9 @@
             <v-icon>mdi-emoticon-sad</v-icon>
           </v-list-item-icon>
       <v-list-item-content class="caption">感情数値 -0.3以下</v-list-item-content>
-    </v-list-item>      
+    </v-list-item>  
+<!--
     <v-divider/>
-
     <template v-slot:append>
       <div class="pa-3 text-center">
         <v-divider />
@@ -145,6 +147,7 @@
         </v-btn>
       </div>
     </template>
+-->    
   </v-navigation-drawer>
   <v-content>
     <router-view></router-view>
