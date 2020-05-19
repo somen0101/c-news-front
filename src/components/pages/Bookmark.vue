@@ -29,7 +29,7 @@ export default {
       const body = {
         username: this.$session.get("username"),
         title: this.title,
-        description: this.sentimental,
+        description: this.description,
         published_date: this.published_date,
         author: this.author,
         topic_url: this.topic_url,

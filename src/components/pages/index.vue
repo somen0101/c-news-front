@@ -35,8 +35,8 @@
             :title="news.title"
             :sentimental="news.sentimental"
             :author="news.author"
-            :published_date="news.published_date"
-            :description="news.description"
+            :published_date="getFormtedDate(news.published_date)"
+            :description="getNewsText(news.description)"
             :image_url="news.image_url"
             :topic_url="news.topic_url"
           ></Bookmark>
@@ -67,7 +67,7 @@ export default {
     };
   },
   watch: {
-    $route(to) {
+    $route(to){
       this.domain_tags = to.params.domain_tags;
       this.page_path = to.path;
       if (this.page_path == "/") {
@@ -173,23 +173,6 @@ export default {
     }
   },
   methods: {
-    bookmark(event) {
-      alert(event.target);
-      console.log(event.target);
-      const body = {
-        body: {
-          username: this.$session.get("username"),
-          title: String(event.target.title),
-          description: String(event.target.sentimental),
-          published_date: String(event.target.published_date),
-          author: String(event.target.author),
-          topic_url: String(event.target.topic_url),
-          image_url: String(event.target.image_url),
-          sentimental: String(event.target.sentimental)
-        }
-      };
-      axios.post("http://localhost:8000/api/bookmark/", body);
-    },
     checktoken() {
       if (this.$session.has("token")) {
         return true;
@@ -198,7 +181,11 @@ export default {
       }
     },
     getFormtedDate(date) {
-      return dayjs(date).format("M/DD HH:mm");
+       if (this.page_path == "/bookmark/") {
+        return date;
+      } else {
+        return dayjs(date).format("M/DD HH:mm");
+      }
     },
     getImageUrl(imageUrl) {
       if (imageUrl !== null && imageUrl.match(/^https?:\/\//)) {
