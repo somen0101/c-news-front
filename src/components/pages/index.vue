@@ -173,23 +173,6 @@ export default {
     }
   },
   methods: {
-    bookmark(event) {
-      alert(event.target);
-      console.log(event.target);
-      const body = {
-        body: {
-          username: this.$session.get("username"),
-          title: String(event.target.title),
-          description: String(event.target.sentimental),
-          published_date: String(event.target.published_date),
-          author: String(event.target.author),
-          topic_url: String(event.target.topic_url),
-          image_url: String(event.target.image_url),
-          sentimental: String(event.target.sentimental)
-        }
-      };
-      axios.post("http://localhost:8000/api/bookmark/", body);
-    },
     checktoken() {
       if (this.$session.has("token")) {
         return true;
@@ -208,11 +191,13 @@ export default {
       }
     },
     getNewsText(text) {
-      const limitedText = text.substr(0, 120);
-      if (limitedText.slice(-3) === "...") {
-        return limitedText;
-      }
-      return limitedText + "...";
+      if (text){
+        const limitedText = text.substr(0, 120);
+        if (limitedText.slice(-3) === "...") {
+          return limitedText;
+        }
+        return limitedText + "...";
+      } else return "本文はありません。"
     },
     emotion_num(num) {
       return Number(num);
