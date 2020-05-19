@@ -35,8 +35,8 @@
             :title="news.title"
             :sentimental="news.sentimental"
             :author="news.author"
-            :published_date="news.published_date"
-            :description="news.description"
+            :published_date="getFormtedDate(news.published_date)"
+            :description="getNewsText(news.description)"
             :image_url="news.image_url"
             :topic_url="news.topic_url"
           ></Bookmark>
@@ -67,7 +67,7 @@ export default {
     };
   },
   watch: {
-    $route(to) {
+    $route(to){
       this.domain_tags = to.params.domain_tags;
       this.page_path = to.path;
       if (this.page_path == "/") {
@@ -181,7 +181,11 @@ export default {
       }
     },
     getFormtedDate(date) {
-      return dayjs(date).format("M/DD HH:mm");
+       if (this.page_path == "/bookmark/") {
+        return date;
+      } else {
+        return dayjs(date).format("M/DD HH:mm");
+      }
     },
     getImageUrl(imageUrl) {
       if (imageUrl !== null && imageUrl.match(/^https?:\/\//)) {
