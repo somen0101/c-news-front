@@ -14,7 +14,7 @@ export default {
     "title",
     "sentimental",
     "author",
-    "pubilshed_date",
+    "published_date",
     "description",
     "image_url",
     "topic_url"
