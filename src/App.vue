@@ -93,10 +93,14 @@
       <template v-slot:append>
         <div class="pa-3 text-center">
           <v-divider />
-
-          <v-btn v-if="checktoken()" rounded shape block @click="logout">ログアウト</v-btn>
-
-          <v-btn v-else to="/auth" rounded shape block color="primary">ログイン</v-btn>
+        <div v-if="checktoken()">
+          <v-btn class="bookmark-button"
+           rounded shape block color="primary"
+           :to="{ name: 'bookmark', params: { username: username } }" >あなたのブックマーク</v-btn>
+          <v-divider />
+          <v-btn shape block @click="logout">ログアウト</v-btn>
+        </div>
+        <v-btn v-else to="/auth"  shape block color="primary">ログイン</v-btn>
         </div>
       </template>
     </v-navigation-drawer>
@@ -115,7 +119,7 @@ export default {
     return {
       info: [],
       username: null,
-      drawer: true
+      drawer: true,
     };
   },
   methods: {
@@ -149,3 +153,11 @@ export default {
   }
 };
 </script>
+
+
+<style lang="scss" scoped>
+ .bookmark-button {
+  margin-bottom: 10px;
+  margin-top: 10px;
+ }
+</style> 

@@ -80,50 +80,50 @@ export default {
     $route(to) {
       this.domain_tags = to.params.domain_tags
       this.page_path = to.path
-      if (this.page_path == '/') {
+      if (this.page_path === '/') {
         axios
           .get(
             'http://localhost:8000/api/newstopics/?domain_tags=jp&top_news=top'
           )
           .then((response) => (this.info = response.data))
         this.page_title = '国内トップニュース'
-      } else if (this.page_path == '/news/jp') {
+      } else if (this.page_path === '/news/jp') {
         axios
           .get('http://localhost:8000/api/newstopics/?domain_tags=jp')
           .then((response) => (this.info = response.data))
         this.page_title = '国内記事'
-      } else if (this.page_path == '/news/us') {
+      } else if (this.page_path === '/news/us') {
         axios
           .get('http://localhost:8000/api/newstopics/?domain_tags=us')
           .then((response) => (this.info = response.data))
         this.page_title = 'アメリカ'
-      } else if (this.page_path == '/news/gb') {
+      } else if (this.page_path === '/news/gb') {
         axios
           .get('http://localhost:8000/api/newstopics/?domain_tags=gb')
           .then((response) => (this.info = response.data))
         this.page_title = 'イギリス'
-      } else if (this.page_path == '/news/kr') {
+      } else if (this.page_path === '/news/kr') {
         axios
           .get('http://localhost:8000/api/newstopics/?domain_tags=kr')
           .then((response) => (this.info = response.data))
         this.page_title = '韓国'
-      } else if (this.page_path == '/news/fr') {
+      } else if (this.page_path === '/news/fr') {
         axios
           .get('http://localhost:8000/api/newstopics/?domain_tags=fr')
           .then((response) => (this.info = response.data))
         this.page_title = 'フランス'
-      } else if (this.page_path == '/news/it') {
+      } else if (this.page_path === '/news/it') {
         axios
           .get('http://localhost:8000/api/newstopics/?domain_tags=it')
           .then((response) => (this.info = response.data))
         this.page_title = 'イタリア'
-      } else if (this.page_path == '/news/de') {
+      } else if (this.page_path === '/news/de') {
         axios
           .get('http://localhost:8000/api/newstopics/?domain_tags=de')
           .then((response) => (this.info = response.data))
         this.page_title = 'ドイツ'
       } else if (
-        this.page_path ==
+        this.page_path ===
         '/bookmark/' + this.$session.get('username')
       ) {
         axios
@@ -139,41 +139,44 @@ export default {
   mounted() {
     this.domain_tags = this.$route.params.domain_tags
     this.page_path = this.$route.path
-    if (this.page_path == '/') {
+    if (this.page_path === '/') {
       axios
         .get(
           'http://localhost:8000/api/newstopics/?domain_tags=jp&top_news=top'
         )
         .then((response) => (this.info = response.data))
-    } else if (this.page_path == '/news/jp') {
+    } else if (this.page_path === '/news/jp') {
       axios
         .get('http://localhost:8000/api/newstopics/?domain_tags=jp')
         .then((response) => (this.info = response.data))
-    } else if (this.page_path == '/news/us') {
+    } else if (this.page_path === '/news/us') {
       axios
         .get('http://localhost:8000/api/newstopics/?domain_tags=us')
         .then((response) => (this.info = response.data))
-    } else if (this.page_path == '/news/gb') {
+    } else if (this.page_path === '/news/gb') {
       axios
         .get('http://localhost:8000/api/newstopics/?domain_tags=gb')
         .then((response) => (this.info = response.data))
-    } else if (this.page_path == '/news/kr') {
+    } else if (this.page_path === '/news/kr') {
       axios
         .get('http://localhost:8000/api/newstopics/?domain_tags=kr')
         .then((response) => (this.info = response.data))
-    } else if (this.page_path == '/news/fr') {
+    } else if (this.page_path === '/news/fr') {
       axios
         .get('http://localhost:8000/api/newstopics/?domain_tags=fr')
         .then((response) => (this.info = response.data))
-    } else if (this.page_path == '/news/it') {
+    } else if (this.page_path === '/news/it') {
       axios
         .get('http://localhost:8000/api/newstopics/?domain_tags=it')
         .then((response) => (this.info = response.data))
-    } else if (this.page_path == '/news/de') {
+    } else if (this.page_path === '/news/de') {
       axios
         .get('http://localhost:8000/api/newstopics/?domain_tags=de')
         .then((response) => (this.info = response.data))
-    } else if (this.page_path == '/bookmark/' + this.$session.get('username')) {
+    } else if (
+      this.page_path ===
+      '/bookmark/' + this.$session.get('username')
+    ) {
       axios
         .get(
           'http://localhost:8000/api/bookmark/?username=' +
@@ -191,7 +194,7 @@ export default {
       }
     },
     getFormtedDate(date) {
-      if (this.page_path == '/bookmark/') {
+      if (this.page_path === '/bookmark/' + this.$session.get('username')) {
         return date
       } else {
         return dayjs(date).format('M/DD HH:mm')
