@@ -195,11 +195,13 @@ export default {
       }
     },
     getNewsText(text) {
-      const limitedText = text.substr(0, 120);
-      if (limitedText.slice(-3) === "...") {
-        return limitedText;
-      }
-      return limitedText + "...";
+      if (text){
+        const limitedText = text.substr(0, 120);
+        if (limitedText.slice(-3) === "...") {
+          return limitedText;
+        }
+        return limitedText + "...";
+      } else return "本文はありません。"
     },
     emotion_num(num) {
       return Number(num);
