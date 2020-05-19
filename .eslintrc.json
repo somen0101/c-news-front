@@ -1,0 +1,17 @@
+{
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser" : "babel-eslint"
+  },
+  "plugins": ["vue", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/recommended",
+    "prettier",
+    "prettier/vue"
+  ],
+  "rules": {
+    "prettier/prettier": "error",
+    "no-var": "error"
+  }
+}
