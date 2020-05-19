@@ -1,6 +1,5 @@
-
 <template>
-  <div class="text-right" v-if="checktoken()">
+  <div v-if="checktoken()" class="text-right">
     <v-btn small class="bm-btn" @click="bookmark">
       <v-icon>mdi-link</v-icon>
     </v-btn>
@@ -8,45 +7,45 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios'
 export default {
-  props: [
-    "title",
-    "sentimental",
-    "author",
-    "pubilshed_date",
-    "description",
-    "image_url",
-    "topic_url"
-  ],
+  props: {
+    title: { type: String, require: true, default: '' },
+    sentimental: { type: String, require: true, default: '' },
+    author: { type: String, require: true, default: '' },
+    publishedDate: { type: String, require: true, default: '' },
+    description: { type: String, require: true, default: '' },
+    imageUrl: { type: String, require: true, default: '' },
+    topicUrl: { type: String, require: true, default: '' },
+  },
   data() {
     return {
-      isLike: false
-    };
+      isLike: false,
+    }
   },
   methods: {
     bookmark() {
       const body = {
-        username: this.$session.get("username"),
+        username: this.$session.get('username'),
         title: this.title,
         description: this.description,
-        published_date: this.published_date,
+        published_date: this.publishedDate,
         author: this.author,
-        topic_url: this.topic_url,
-        image_url: this.image_url,
-        sentimental: this.sentimental
-      };
-      axios.post("http://localhost:8000/api/bookmark/", body);
+        topic_url: this.topicUrl,
+        image_url: this.imageUrl,
+        sentimental: this.sentimental,
+      }
+      axios.post('http://localhost:8000/api/bookmark/', body)
     },
     checktoken() {
-      if (this.$session.has("token")) {
-        return true;
+      if (this.$session.has('token')) {
+        return true
       } else {
-        return false;
+        return false
       }
-    }
-  }
-};
+    },
+  },
+}
 </script>
 
 <style lang="scss" scoped>
