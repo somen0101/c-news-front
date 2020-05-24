@@ -23,11 +23,12 @@ export default {
     description: { type: String, require: true, default: '' },
     imageUrl: { type: String, require: true, default: '' },
     topicUrl: { type: String, require: true, default: '' },
-    bookmarkId: { type: String, require: true, default: undefined },
+    bookmarkId: { type: Number, require: true, default: undefined },
   },
   data() {
     return {
       bookmarked: false,
+      id: this.bookmarkId,
     }
   },
   created() {
@@ -49,8 +50,9 @@ export default {
         image_url: this.imageUrl,
         sentimental: this.sentimental,
       }
-      axios.post('http://localhost:8000/api/bookmark/', body).then(() => {
+      axios.post('http://localhost:8000/api/bookmark/', body).then((res) => {
         this.bookmarked = true
+        this.id = res.data.id
       })
     },
     deleteBookmark() {
@@ -58,7 +60,7 @@ export default {
         .delete(
           `http://localhost:8000/api/bookmark/${this.$session.get(
             'username'
-          )}/${this.bookmarkId}`
+          )}/${this.id}`
         )
         .then(() => {
           this.bookmarked = false

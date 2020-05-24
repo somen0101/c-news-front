@@ -72,7 +72,7 @@ export default {
       domain_tags: [],
       page_path: [],
       page_title: '国内トップニュース',
-      info: [],
+      info: {},
       credit: [],
       username: null,
       bookmarks: {},
