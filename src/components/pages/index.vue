@@ -49,6 +49,7 @@
             :description="getNewsText(news.description)"
             :image-url="news.image_url"
             :topic-url="news.topic_url"
+            :bookmark-id="setBookmarkId(news.topic_url)"
           ></Bookmark>
         </v-container>
       </v-card>
@@ -59,7 +60,7 @@
 <script>
 import axios from 'axios'
 import dayjs from 'dayjs'
-import Bookmark from './Bookmark.vue'
+import Bookmark from '../modules/BookmarkButton.vue'
 
 export default {
   name: 'Index',
@@ -71,13 +72,25 @@ export default {
       domain_tags: [],
       page_path: [],
       page_title: '国内トップニュース',
-      info: [],
+      info: {},
       credit: [],
       username: null,
+      bookmarks: {},
     }
   },
   watch: {
-    $route(to) {
+    async $route(to) {
+      if (this.checktoken()) {
+        await axios
+          .get(
+            `http://localhost:8000/api/bookmark/${this.$session.get(
+              'username'
+            )}`
+          )
+          .then((res) => {
+            this.bookmarks = res.data
+          })
+      }
       this.domain_tags = to.params.domain_tags
       this.page_path = to.path
       if (this.page_path === '/') {
@@ -136,7 +149,16 @@ export default {
       }
     },
   },
-  mounted() {
+  async mounted() {
+    if (this.checktoken()) {
+      await axios
+        .get(
+          `http://localhost:8000/api/bookmark/${this.$session.get('username')}`
+        )
+        .then((res) => {
+          this.bookmarks = res.data
+        })
+    }
     this.domain_tags = this.$route.params.domain_tags
     this.page_path = this.$route.path
     if (this.page_path === '/') {
@@ -218,6 +240,14 @@ export default {
     },
     emotion_num(num) {
       return Number(num)
+    },
+    setBookmarkId(url) {
+      for (let key in this.bookmarks) {
+        if (this.bookmarks[key].topic_url === url) {
+          return this.bookmarks[key].id
+        }
+      }
+      return undefined
     },
   },
 }
