@@ -60,7 +60,7 @@
 <script>
 import axios from 'axios'
 import dayjs from 'dayjs'
-import Bookmark from './Bookmark.vue'
+import Bookmark from '../modules/BookmarkButton.vue'
 
 export default {
   name: 'Index',
